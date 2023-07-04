@@ -26,13 +26,23 @@ struct FacilityResponse: Codable {
 
 	// MARK: - Exclusion
 struct Exclusion: Codable {
-	let facility_id, options_id: String
+	let facilityID, optionID: String
+	
+	enum CodingKeys: String, CodingKey {
+		case facilityID = "facility_id"
+		case optionID = "options_id"
+	}
 }
  
 	// MARK: - Facility
 struct Facility: Codable {
-	let facility_id, name: String
+	let facilityID, name: String
 	let options: [Option]
+	
+	enum CodingKeys: String, CodingKey {
+		case facilityID = "facility_id"
+		case name, options
+	}
 }
 
 	// MARK: - Option
