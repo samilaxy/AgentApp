@@ -8,15 +8,25 @@
 import SwiftUI
 
 struct ContentView: View {
-    var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
-        }
-        .padding()
-    }
+	@ObservedObject private var viewModel = FacilityViewModel()
+	
+	var body: some View {
+		VStack {
+			if let facilities = viewModel.facilities?.facilities {
+				List(facilities, id: \.name) { facility in
+					VStack {
+						Image(facility.options[0].icon)
+						Text(facility.name)
+					}
+				}
+			} else {
+				Text("Loading...")
+			}
+		}
+		.onAppear {
+			viewModel.fetchData()
+		}
+	}
 }
 
 struct ContentView_Previews: PreviewProvider {
