@@ -40,6 +40,7 @@
 		495500042A530E9900EC8E0D /* Facility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Facility.swift; sourceTree = "<group>"; };
 		495500062A530EDA00EC8E0D /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		495500082A53113000EC8E0D /* FacilityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacilityViewModel.swift; sourceTree = "<group>"; };
+		4955000A2A549CDE00EC8E0D /* response_data.geojson */ = {isa = PBXFileReference; lastKnownFileType = text; path = response_data.geojson; sourceTree = "<group>"; };
 		4955FFD72A530D1D00EC8E0D /* AgentApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AgentApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4955FFDA2A530D1D00EC8E0D /* AgentAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentAppApp.swift; sourceTree = "<group>"; };
 		4955FFDC2A530D1D00EC8E0D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -80,6 +81,7 @@
 		4955FFCE2A530D1D00EC8E0D = {
 			isa = PBXGroup;
 			children = (
+				4955000A2A549CDE00EC8E0D /* response_data.geojson */,
 				4955FFD92A530D1D00EC8E0D /* AgentApp */,
 				4955FFEA2A530D2000EC8E0D /* AgentAppTests */,
 				4955FFF42A530D2000EC8E0D /* AgentAppUITests */,

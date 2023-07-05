@@ -49,3 +49,8 @@ struct Facility: Codable {
 struct Option: Codable {
 	let name, icon, id: String
 }
+
+struct BtnOption: Codable {
+	let name, icon, id: String
+	var isSelected = false
+}

@@ -11,12 +11,39 @@ import Combine
 
 class FacilityViewModel: ObservableObject {
 	@Published var facilities: FacilityResponse?
+	@Published var btn: [BtnOption] = []
+	@Published var isSelected = false
 	private var cancellables: Set<AnyCancellable> = []
+	
+	init() {
+		fetchData()
+		//fetchLocalData()
+	}
 	
 	func fetchData() {
 		NetworkManager.shared.fetchData()
 			.decode(type: FacilityResponse.self, decoder: JSONDecoder())
 		//	.map(\.facilities)
+			.receive(on: DispatchQueue.main)
+			.sink(receiveCompletion: { completion in
+				switch completion {
+					case .failure(let error):
+							// Handle network or JSON decoding error
+						print("Error: \(error)")
+					case .finished:
+						break
+				}
+			}, receiveValue: { [weak self] facilities in
+				self?.facilities = facilities
+				print(facilities)
+			})
+			.store(in: &cancellables)
+	}
+	
+	func fetchLocalData() {
+		NetworkManager.shared.fetchLocalData()
+			//.decode(type: FacilityResponse.self, decoder: JSONDecoder())
+			//	.map(\.facilities)
 			.receive(on: DispatchQueue.main)
 			.sink(receiveCompletion: { completion in
 				switch completion {
