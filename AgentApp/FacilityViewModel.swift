@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import SwiftUI
 
 
 class FacilityViewModel: ObservableObject {
@@ -35,7 +36,16 @@ class FacilityViewModel: ObservableObject {
 				}
 			}, receiveValue: { [weak self] facilities in
 				self?.facilities = facilities
+				//
+				if let items = self?.facilities?.facilities {
+					for item in items {
+						for option in item.options {
+							self?.btn.append(BtnOption(name: option.name, icon: option.icon))
+						}
+					}
+				}
 				print(facilities)
+				print("btn:",self?.btn)
 			})
 			.store(in: &cancellables)
 	}
@@ -55,7 +65,16 @@ class FacilityViewModel: ObservableObject {
 				}
 			}, receiveValue: { [weak self] facilities in
 				self?.facilities = facilities
+				//ForEach(self?.facilities)
+				if let items = self?.facilities?.facilities {
+					for item in items {
+						for option in item.options {
+							self?.btn.append(BtnOption(name: option.name, icon: option.icon))
+						}
+					}
+				}
 				print(facilities)
+				print("btn:",self?.btn)
 			})
 			.store(in: &cancellables)
 	}
