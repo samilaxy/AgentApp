@@ -36,7 +36,7 @@ struct Exclusion: Codable {
  
 	// MARK: - Facility
 struct Facility: Codable {
-	let facilityID, name: String
+	var facilityID, name: String
 	var options: [Option]
 	
 	enum CodingKeys: String, CodingKey {
@@ -47,11 +47,21 @@ struct Facility: Codable {
 
 	// MARK: - Option
 struct Option: Codable {
-	let name, icon, id: String
+	var name, icon, id: String
 }
 
+
+struct FacilityData: Codable {
+	let facilities: [BtnData]
+	let exclusions: [[Exclusion]]
+}
+
+struct BtnData: Codable {
+	var facilityID, name: String
+	var option: [BtnOption]
+}
 struct BtnOption: Codable {
-	var id = UUID()
+	var id: Int
 	var name, icon: String
 	var isSelected = false
 }

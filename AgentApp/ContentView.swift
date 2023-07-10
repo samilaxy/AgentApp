@@ -12,10 +12,10 @@ struct ContentView: View {
 	
 	var body: some View {
 		VStack {
-			if let facility = viewModel.facilities?.facilities {
+		//	if let facility = viewModel.receivedData {
 				ScrollView {
 					LazyVStack(spacing: 10) {
-						ForEach(facility, id: \.name) { facility in
+						ForEach(viewModel.receivedData, id: \.facilityID) { facility in
 							VStack(alignment: .leading, spacing: 8) {
 								Text(facility.name)
 									.font(.headline)
@@ -23,16 +23,27 @@ struct ContentView: View {
 								
 								ScrollView(.horizontal, showsIndicators: false) {
 									LazyHStack(spacing: 10) {
-										ForEach(viewModel.btn.indices, id: \.self) { index in
-											let option = viewModel.btn[index]
+										ForEach(facility.options, id: \.id) { item in
 											Button(action: {
-												print(option.name)
-												viewModel.btn[index].isSelected.toggle()
+												viewModel.handleSelection(facilityID: facility.facilityID, option: item)
 											}) {
-												OptionView(option: option, isSelected: option.isSelected)
-											}
+												VStack(spacing: 5) {
+													Image(item.icon)
+														.frame(width: 15, height: 15)
+													Text(item.name)
+														.foregroundColor(viewModel.getTextColor(for: facility, option: item))
+														.font(.caption)
+														.multilineTextAlignment(.center)
+														.padding(5)
+												}
+												
+												.frame(width: 80, height: 80)
+												.background(viewModel.getBackgroundColor(for: facility, option: item))
+												.cornerRadius(8)
+												.padding()
+												.shadow(color: Color.gray.opacity(0.3), radius: 5, x: 0, y: 2)
+											}.disabled(viewModel.isOptionExcluded(facilityID: facility.facilityID, optionID: item.id))
 										}
-
 									}
 								}
 							}
@@ -45,9 +56,9 @@ struct ContentView: View {
 					}
 					.padding(.top, 16)
 				}
-			} else {
-				Text("Loading...")
-			}
+//			} else {
+//				Text("Loading...")
+//			}
 		}
 	}
 }
@@ -73,4 +84,7 @@ struct OptionView: View {
 		.shadow(color: Color.gray.opacity(0.3), radius: 5, x: 0, y: 2)
 	}
 }
+
+
+
 
