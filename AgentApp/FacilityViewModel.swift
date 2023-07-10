@@ -17,15 +17,10 @@ class FacilityViewModel: ObservableObject {
 	@Published var exclusions: [[Exclusion]] = []
 	@Published var selectedOptions: [String: Option] = [:]
 	@Published  var exclusionCombinations: [Exclusion] = []
-	
-	@Published var btnFacilities: [BtnData] = []
-	@Published var btnOption: [BtnOption] = []
-	@Published var isSelected = false
 	private var cancellables: Set<AnyCancellable> = []
 	
 	init() {
 		fetchData()
-		//fetchLocalData()
 	}
 	
 	func fetchData() {
@@ -44,26 +39,7 @@ class FacilityViewModel: ObservableObject {
 				self?.receivedData = response.facilities
 				self?.exclusions = response.exclusions
 				print("response:",response)
-//				let btnData = FacilityData(
-//					facilities: facilityResponse.facilities.map { facility in
-//						BtnData(
-//							facilityID: facility.facilityID,
-//							name: facility.name,
-//							option: facility.options.map { option in
-//								BtnOption(
-//									id: Int(option.id) ?? 0,
-//									name: option.name,
-//									icon: option.icon
-//								)
-//							}
-//						)
-//					},
-//					exclusions: facilityResponse.exclusions
-//				)
-
-			}
-
-)
+			})
 			.store(in: &cancellables)
 	}
 
@@ -75,15 +51,12 @@ class FacilityViewModel: ObservableObject {
 			} else {
 				selectedOptions[facilityID] = option
 			}
-		//	print("selected", selectedOptions)
 		} else {
 			selectedOptions[facilityID] = option
-		//	print("selected", selectedOptions)
 		}
 	}
 	
 	func isOptionExcluded(facilityID: String, optionID: String) -> Bool {
-			//  exclusionCombinations.contains(where: { $0 == (facilityID, optionID) })
 		var isDisabled = false
 		
 		for pairedExclusions in exclusions {
@@ -147,24 +120,6 @@ extension FacilityViewModel {
 			return Color.blue.opacity(0.7)
 		} else {
 			return Color.secondary.opacity(0.3)
-		}
-	}
-}
-
-extension FacilityViewModel {
-	func getTextColor1(for facility: Facility, option: Option) -> Color {
-		if let selectedOption = selectedOptions[facility.facilityID], selectedOption.id == option.id {
-			return isOptionExcluded(facilityID: facility.facilityID, optionID: option.id) ? Color.blue.opacity(0.5) : Color.white
-		} else {
-			return isOptionExcluded(facilityID: facility.facilityID, optionID: option.id) ? Color.white : Color.blue.opacity(0.5)
-		}
-	}
-	
-	func getBackgroundColor1(for facility: Facility, option: Option) -> Color {
-		if let selectedOption = selectedOptions[facility.facilityID], selectedOption.id == option.id {
-			return isOptionExcluded(facilityID: facility.facilityID, optionID: option.id) ? Color.white : Color.blue.opacity(0.7)
-		} else {
-			return isOptionExcluded(facilityID: facility.facilityID, optionID: option.id) ?  Color.white : Color.secondary.opacity(0.3)
 		}
 	}
 }
